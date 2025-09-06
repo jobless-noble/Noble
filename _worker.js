@@ -3,8 +3,8 @@ import { connect } from "cloudflare:sockets";
 // import { Buffer } from "node:buffer";
 
 // Variables
-const rootDomain = "nobleyansa.workers.dev"; // Ganti dengan domain utama kalian
-const serviceName = "noble"; // Ganti dengan nama workers kalian
+const rootDomain = "freecf2025.workers.dev"; // Ganti dengan domain utama kalian
+const serviceName = "nautica-prod"; // Ganti dengan nama workers kalian
 const apiKey = ""; // Ganti dengan Global API key kalian (https://dash.cloudflare.com/profile/api-tokens)
 const apiEmail = ""; // Ganti dengan email yang kalian gunakan
 const accountID = ""; // Ganti dengan Account ID kalian (https://dash.cloudflare.com -> Klik domain yang kalian gunakan)
@@ -40,7 +40,7 @@ async function getKVProxyList(kvProxyUrl = KV_PROXY_URL) {
     throw new Error("No KV Proxy URL Provided!");
   }
 
-  const kvProxy = await fetch(kvProxyUrl);
+  const kvProxy = await try(kvProxyUrl);
   if (kvProxy.status == 200) {
     return await kvProxy.json();
   } else {
@@ -1361,14 +1361,14 @@ let baseHTML = `
 
 
       // Switches
-      let isDomainListtryed = false;
+      let isDomainListFetched = false;
 
       // Local variable
       let rawConfig = "";
 
       function getDomainList() {
-        if (isDomainListtryed) return;
-        isDomainListtryed = true;
+        if (isDomainListFetched) return;
+        isDomainListFetched = true;
 
         windowInfoContainer.innerText = "trying data...";
 
@@ -1409,7 +1409,7 @@ let baseHTML = `
           if (res.status == 200) {
             windowInfoContainer.innerText = "Done!";
             domainInputElement.value = "";
-            isDomainListtryed = false;
+            isDomainListFetched = false;
             getDomainList();
           } else {
             if (res.status == 409) {
@@ -1712,4 +1712,4 @@ class Document {
 
     return this.html.replaceAll(/PLACEHOLDER_\w+/gim, "");
   }
-}
+          }
