@@ -40,7 +40,7 @@ async function getKVProxyList(kvProxyUrl = KV_PROXY_URL) {
     throw new Error("No KV Proxy URL Provided!");
   }
 
-  const kvProxy = await try(kvProxyUrl);
+  const kvProxy = await fetch(kvProxyUrl);
   if (kvProxy.status == 200) {
     return await kvProxy.json();
   } else {
